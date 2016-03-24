@@ -19,7 +19,7 @@ public class RedisCacheServer implements BasicRedisCacheServer {
 
 	public static final Integer DEFAULT_EXPIRE_TIME = 60 * 60 * 24;
 	
-	public RedisCacheServer (final String host,final int port,int maxActive,int maxIdle,int maxWait,boolean testOnBorrow) {
+	public RedisCacheServer (final String host,final int port,int maxActive,int maxIdle,int maxWait,boolean testOnBorrow,boolean hasPassword,String password,int timeout) {
 		JedisPoolConfig jpConfig = new JedisPoolConfig();
 		if (maxActive == 0) maxActive = 10;
 		jpConfig.setMaxActive(maxActive);
@@ -28,7 +28,11 @@ public class RedisCacheServer implements BasicRedisCacheServer {
 		if (maxWait == 0) maxWait = 10;
 		jpConfig.setMaxWait(maxWait);
 		jpConfig.setTestOnBorrow(testOnBorrow);
-		jedisPool = new JedisPool(jpConfig, host,port);
+		if(hasPassword){
+			jedisPool = new JedisPool(jpConfig, host,port, timeout, password);
+		}else{
+			jedisPool = new JedisPool(jpConfig, host,port);
+		}
 	}
 
 	public List<String> get(String key, String mapKey) {

@@ -7,12 +7,15 @@ public class RedisServer {
 	private String name;
 	private String description;
 	private String host;
+	private String password;
 	private int port;
 	private int maxActive;
 	private int maxIdle;
 	private int maxWait;
+	private int timeout;
 	private boolean testOnBorrow;
 	private boolean isMaster;
+	private boolean hasPassword;
 	private List<RedisServer> slaveRedisServer;
 	private RedisServer masterRedisServer;
 	
@@ -114,6 +117,30 @@ public class RedisServer {
 		this.masterRedisServer = masterRedisServer;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public int getTimeout() {
+		return timeout;
+	}
+
+	public void setTimeout(int timeout) {
+		this.timeout = timeout;
+	}
+
+	public boolean isHasPassword() {
+		return hasPassword;
+	}
+
+	public void setHasPassword(boolean hasPassword) {
+		this.hasPassword = hasPassword;
+	}
+
 	@Override
 	public String toString() {
 		return "RedisServer [uuid=" + uuid + ", name=" + name
@@ -122,6 +149,7 @@ public class RedisServer {
 				+ ", maxWait=" + maxWait + ", testOnBorrow=" + testOnBorrow
 				+ ", isMaster=" + isMaster + ", slaveRedisServer="
 				+ slaveRedisServer + ", masterRedisServer=" + masterRedisServer
+				+ ", hasPassword=" + hasPassword + ", password=" + password + ", timeout=" + timeout 
 				+ "]";
 	}
 	

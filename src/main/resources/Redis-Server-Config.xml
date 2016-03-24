@@ -11,6 +11,9 @@
          <maxWait>3000</maxWait>
          <testOnBorrow>true</testOnBorrow>
          <isMaster>true</isMaster>
+         <hasPassword>true</hasPassword>
+         <timeout>3600</timeout>
+         <password>yourPassword</password>
          <Slaves>
             <slave uuid="0102">
                <name>userRead</name>
@@ -22,6 +25,9 @@
                <maxWait>3000</maxWait>
                <testOnBorrow>true</testOnBorrow>
                <isMaster>false</isMaster>
+		       <hasPassword>true</hasPassword>
+		       <timeout>3600</timeout>
+		       <password>yourPassword</password>
             </slave>
          </Slaves>
       </Redis-Server>

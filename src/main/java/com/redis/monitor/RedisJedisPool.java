@@ -27,13 +27,13 @@ public class RedisJedisPool {
 	public static void initRedisJedisPool(List<RedisServer> rsList) {
 		Redis redis = null;
 		for (RedisServer rs : rsList) {
-			BasicRedisCacheServer server = new RedisCacheServer(rs.getHost(), rs.getPort(), rs.getMaxActive(), rs.getMaxIdle(), rs.getMaxWait(), rs.isTestOnBorrow());
+			BasicRedisCacheServer server = new RedisCacheServer(rs.getHost(), rs.getPort(), rs.getMaxActive(), rs.getMaxIdle(), rs.getMaxWait(), rs.isTestOnBorrow(), rs.isHasPassword(), rs.getPassword(), rs.getTimeout());
 			redis = new Redis(server, rs);
 			map.put(rs.getUuid(), redis);
 			
 			List<RedisServer> slaveRs = rs.getSlaveRedisServer();
 			for (RedisServer slRs : slaveRs) {
-				BasicRedisCacheServer readServer = new RedisCacheServer(slRs.getHost(), slRs.getPort(), slRs.getMaxActive(), slRs.getMaxIdle(), slRs.getMaxWait(), slRs.isTestOnBorrow());
+				BasicRedisCacheServer readServer = new RedisCacheServer(slRs.getHost(), slRs.getPort(), slRs.getMaxActive(), slRs.getMaxIdle(), slRs.getMaxWait(), slRs.isTestOnBorrow(), rs.isHasPassword(), rs.getPassword(), rs.getTimeout());
 				redis = new Redis(readServer, slRs);
 				map.put(slRs.getUuid(), redis);
 			}
@@ -43,7 +43,7 @@ public class RedisJedisPool {
 	
 	public static void addNewRedisServer(RedisServer rs) {
 		if (rs != null) {
-			BasicRedisCacheServer server = new RedisCacheServer(rs.getHost(), rs.getPort(), rs.getMaxActive(), rs.getMaxIdle(), rs.getMaxWait(), rs.isTestOnBorrow());
+			BasicRedisCacheServer server = new RedisCacheServer(rs.getHost(), rs.getPort(), rs.getMaxActive(), rs.getMaxIdle(), rs.getMaxWait(), rs.isTestOnBorrow(), rs.isHasPassword(), rs.getPassword(), rs.getTimeout());
 			
 			Redis redis = new Redis(server, rs);
 			map.put(rs.getUuid(), redis);

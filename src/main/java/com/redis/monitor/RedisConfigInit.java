@@ -4,11 +4,9 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -17,9 +15,7 @@ import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import redis.clients.util.Slowlog;
 
-import com.ibm.icu.text.SimpleDateFormat;
 import com.redis.monitor.redis.BasicRedisCacheServer;
 
 
@@ -95,12 +91,15 @@ public class RedisConfigInit {
 		String name = el.element("name").getText();
 		String description = el.element("description").getText();
 		String host = el.element("host").getText();
+		String password = el.element("password").getText();
 		int port = Integer.parseInt(el.element("port").getText());
 		int maxActive = Integer.parseInt(el.element("maxActive").getText());
 		int maxIdle = Integer.parseInt(el.element("maxIdle").getText());
 		int maxWait = Integer.parseInt(el.element("maxWait").getText());
+		int timeout = Integer.parseInt(el.element("timeout").getText());
 		boolean testOnBorrow = Boolean.parseBoolean(el.element("testOnBorrow").getText());
 		boolean isMaster = Boolean.parseBoolean(el.element("isMaster").getText());
+		boolean hasPassword = Boolean.parseBoolean(el.element("hasPassword").getText());
 		
 		RedisServer rs = new RedisServer();
 		rs.setUuid(uuid);
@@ -113,6 +112,9 @@ public class RedisConfigInit {
 		rs.setMaxWait(maxWait);
 		rs.setTestOnBorrow(testOnBorrow);
 		rs.setMaster(isMaster);
+		rs.setPassword(password);
+		rs.setTimeout(timeout);
+		rs.setHasPassword(hasPassword);
 		return rs;
 	}
 	
